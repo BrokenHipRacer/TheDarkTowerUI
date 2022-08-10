@@ -13,7 +13,7 @@ export default class extends Component {
                     <div className="blog-posts-list">
                         <a href="/blog/post-title">
                             <div className="blog-posts-list-item">
-                                <div className="blog-post-thumbnail">
+                                <div className="blog-posts-thumbnail">
                                     <img src="https://assets.coderrocketfuel.com/coding-blog-nodejs-thumbnail.png" />
                                 </div>
                                 <div className="blog-posts-list-item-title-and-date">
@@ -26,7 +26,7 @@ export default class extends Component {
                         </a>
                         <a href="/blog/post-title">
                             <div className="blog-posts-list-item">
-                                <div className="blog-post-thumbnail">
+                                <div className="blog-posts-thumbnail">
                                     <img src="https://assets.coderrocketfuel.com/coding-blog-nodejs-thumbnail.png" />
                                 </div>
                                 <div className="blog-posts-list-item-title-and-date">
