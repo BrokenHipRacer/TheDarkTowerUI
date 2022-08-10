@@ -9,6 +9,7 @@ import "../styles/components/footer.css"
 import "../styles/pages/homepage.css"
 import "../styles/pages/blog-posts.css"
 import "../styles/pages/post.css"
+import "../styles/pages/contact.css"
 
 // external import
 import "../styles/prismjs.css"
