@@ -6,6 +6,7 @@ import "prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js"
 
 import Header from "../../components/header"
 import Footer from "../../components/footer"
+import HeadMetadata from "../../components/headMetadata";
 
 export default class extends Component {
 
@@ -16,6 +17,10 @@ export default class extends Component {
     render () {
         return (
             <div className="layout-wrapper">
+                <HeadMetadata
+                    title="Your Blog Post Title | Andrew Alsberge Blog"
+                    metaDescription="This meta description will be pulled from our backend REST API when we have it build later on in this course."
+                />
                 <Header />
                 <div className="blog-post-container">
                     <div className="blog-post-top-section">
