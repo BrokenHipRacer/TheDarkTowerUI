@@ -3,9 +3,9 @@ import moment from "moment";
 
 import Header from "../../../components/header"
 import Footer from "../../../components/footer"
-import HeadMetadata from "../../../components/headMetadata";
+import HeadMetadata from "../../../components/headMetadata"
 
-import getBlogPostsByTag from "../../../api/getBlogPostsByTag";
+import getBlogPostsByTag from "../../../api/getBlogPostsByTag"
 
 export default class extends Component {
     static async getInitialProps ({ query }) {

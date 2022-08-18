@@ -2,7 +2,7 @@ import { Component } from "react"
 
 import Header from "../components/header"
 import Footer from "../components/footer"
-import HeadMetadata from "../components/headMetadata";
+import HeadMetadata from "../components/headMetadata"
 
 export default class extends Component {
     render () {

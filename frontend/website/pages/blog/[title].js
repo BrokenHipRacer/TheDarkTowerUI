@@ -7,7 +7,7 @@ import "prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js"
 
 import Header from "../../components/header"
 import Footer from "../../components/footer"
-import HeadMetadata from "../../components/headMetadata";
+import HeadMetadata from "../../components/headMetadata"
 
 import getBlogPostByUrlTitle from "../../api/getBlogPostByUrlTitle"
 
