@@ -1,13 +1,20 @@
 import { Component } from "react"
+import moment from "moment";
 
 import Header from "../../../components/header"
 import Footer from "../../../components/footer"
 import HeadMetadata from "../../../components/headMetadata";
 
+import getBlogPostsByTag from "../../../api/getBlogPostsByTag";
+
 export default class extends Component {
     static async getInitialProps ({ query }) {
+        const apiResult = await getBlogPostsByTag(query.tag)
+
         return {
-            tag: query.tag
+            posts: apiResult && apiResult.posts,
+            tag: query.tag,
+            getDataError: apiResult && apiResult.getDataError
         }
     }
 
@@ -22,19 +29,29 @@ export default class extends Component {
                 <div className="blog-posts-container">
                     <h1>Blog posts tagged as <u>{this.props.tag}</u></h1>
                     <div className="blog-posts-list">
-                        <a href="/blog/post-title">
-                            <div className="blog-posts-list-item">
-                                <div className="blog-posts-thumbnail">
-                                    <img src="https://assets.coderrocketfuel.com/coding-blog-nodejs-thumbnail.png" />
+                        {
+                            this.props.posts ?
+                                this.props.posts.map((post, index) => {
+                                    return (
+                                        <a key={index} href={`/blog/${post.urlTitle}`}>
+                                            <div className="blog-posts-list-item">
+                                                <div className="blog-posts-thumbnail">
+                                                    <img src={post.thumbnailImageUrl} />
+                                                </div>
+                                                <div className="blog-posts-list-item-title-and-date">
+                                                    <h2>{post.title}</h2>
+                                                    <div className="blog-posts-list-item-date">
+                                                        <span>{moment.unix(post.dateTimestamp).format("Do MMMM YYYY")}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    )
+                                }) :
+                                <div className="blog-posts-get-data-error-msg">
+                                    <span>An error occurred.</span>
                                 </div>
-                                <div className="blog-posts-list-item-title-and-date">
-                                    <h2>Your Blog Post Title</h2>
-                                    <div className="blog-posts-list-item-date">
-                                        <span>8/10/2022</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        }
                     </div>
                 </div>
                 <Footer />
