@@ -6,11 +6,6 @@ import MDEditor from '@uiw/react-md-editor'
 import Header from "../../components/header.js"
 import Sidebar from "../../components/sidebar.js"
 
-// Figure out replacement
-if (typeof navigator !== "undefined") {
-    require("simplemde/src/js/simplemde")
-}
-
 export default class extends Component {
     constructor(props) {
         super(props)
@@ -175,6 +170,7 @@ export default class extends Component {
                                 </div>
                                 <div className="create-blog-post-form-section-code-content-input">
                                     <MDEditor
+                                        className="create-blog-post-form-section-mdeditor"
                                         value={markdownInputValue}
                                         onChange={updateMarkdownInputValue}
                                     />
