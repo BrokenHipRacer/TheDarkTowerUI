@@ -7,6 +7,10 @@ import "../styles/components/sidebar.css"
 import "../styles/login.css"
 import "../styles/blog/index.css"
 import "../styles/blog/create-new-post.css"
+import "../styles/blog/edit.css"
+
+//modals
+import "../styles/components/modals/delete-blog-post.css"
 
 export default function MyApp({ Component, pageProps }) {
     return <Component {...pageProps} />
