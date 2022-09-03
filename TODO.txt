@@ -1,0 +1,2 @@
+TODO: https://www.coding-blog.crfcourses.com/admin-rest-api/add-each-admin-user-feature/add-an-initial-admin-user-to-the-database
+TODO : npm install --save bcryptjs
