@@ -1,2 +1,18 @@
-TODO: https://www.coding-blog.crfcourses.com/admin-rest-api/add-each-admin-user-feature/add-an-initial-admin-user-to-the-database
+-- ADMIN : Frontend UI
+
+TODO : Get on Bing , https://www.coding-blog.crfcourses.com/search-engine-indexing/get-indexed-on-bing
+
+TODO : Get setup for Google Analytics, https://www.coding-blog.crfcourses.com/configure-google-analytics/obtain-a-google-analytics-measuring-id
+TODO : Add the measuring to website, https://www.coding-blog.crfcourses.com/configure-google-analytics/add-the-measuring-id-to-the-website
+
+TODO : Create A New Blog Post Page, https://www.coding-blog.crfcourses.com/admin-website-layout-and-styling/build-initial-version-of-each-page/create-a-new-blog-post-page
+TODO : Need to test out this page once I can get to real internet lol
+TODO : Edit a Blog Post is in the same boat, https://www.coding-blog.crfcourses.com/admin-website-layout-and-styling/build-initial-version-of-each-page/edit-a-blog-post-page
+
+
+-- ADMIN : API BackEnd
+
+TODO : Circle back to the user authentication course that is posted, https://www.coding-blog.crfcourses.com/admin-rest-api/add-each-admin-user-feature
+
+TODO : https://www.coding-blog.crfcourses.com/admin-rest-api/add-each-admin-user-feature/add-an-initial-admin-user-to-the-database
 TODO : npm install --save bcryptjs
