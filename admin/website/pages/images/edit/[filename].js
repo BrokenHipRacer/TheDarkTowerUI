@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import Head from "next/head"
 
-import Header from "../../../components/header.js"
-import Sidebar from "../../../components/sidebar.js"
-import DeleteImageModal from "../../../components/modals/deleteImage.js"
+import Header from "../../../components/header"
+import Sidebar from "../../../components/sidebar"
+import DeleteImageModal from "../../../components/modals/deleteImage"
 
 export default class extends Component {
     constructor(props) {

@@ -3,9 +3,9 @@ import Head from "next/head"
 import moment from "moment"
 import MDEditor from '@uiw/react-md-editor'
 
-import Header from "../../../components/header.js"
-import Sidebar from "../../../components/sidebar.js"
-import DeleteBlogPostModal from "../../../components/modals/deleteBlogPost.js"
+import Header from "../../../components/header"
+import Sidebar from "../../../components/sidebar"
+import DeleteBlogPostModal from "../../../components/modals/deleteBlogPost"
 
 export default class extends Component {
     constructor(props) {

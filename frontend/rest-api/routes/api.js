@@ -1,7 +1,7 @@
 const moment = require("moment")
 const showdown = require("showdown")
 
-const BlogPostModel = require("../models/post.js")
+const BlogPostModel = require("../models/post")
 
 module.exports = {
 

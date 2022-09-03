@@ -3,8 +3,8 @@ import Head from "next/head"
 import moment from "moment"
 import MDEditor from '@uiw/react-md-editor'
 
-import Header from "../../components/header.js"
-import Sidebar from "../../components/sidebar.js"
+import Header from "../../components/header"
+import Sidebar from "../../components/sidebar"
 
 export default class extends Component {
     constructor(props) {
