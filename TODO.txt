@@ -9,6 +9,8 @@ TODO : Create A New Blog Post Page, https://www.coding-blog.crfcourses.com/admin
 TODO : Need to test out this page once I can get to real internet lol
 TODO : Edit a Blog Post is in the same boat, https://www.coding-blog.crfcourses.com/admin-website-layout-and-styling/build-initial-version-of-each-page/edit-a-blog-post-page
 
+TODO : https://www.coding-blog.crfcourses.com/admin-rest-api/add-each-admin-user-feature/login
+TODO : npm install --save axios
 
 -- ADMIN : API BackEnd
 
@@ -16,3 +18,7 @@ TODO : Circle back to the user authentication course that is posted, https://www
 
 TODO : https://www.coding-blog.crfcourses.com/admin-rest-api/add-each-admin-user-feature/add-an-initial-admin-user-to-the-database
 TODO : npm install --save bcryptjs
+
+TODO : I can't install anything now.  I will be throwing code into a repo, and I can't test anything.  This course could have use an offline development and test setup.
+TODO : https://www.coding-blog.crfcourses.com/admin-rest-api/add-each-admin-user-feature/login
+TODO : npm install --save tldjs

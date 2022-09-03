@@ -38,4 +38,13 @@ AdminUserSchema.pre("save", function (next) {
     }
 })
 
+AdminUserSchema.methods.comparePassword = function (password, callback) {
+    bcrypt.compare(password, this.password, function (err, isMatch) {
+        if (err) {
+            return callback(err)
+        }
+        callback(null, isMatch)
+    })
+}
+
 module.exports = mongoose.model("AdminUser", AdminUserSchema)
