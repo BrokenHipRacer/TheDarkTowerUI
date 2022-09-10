@@ -1,3 +1,6 @@
+import "@uiw/react-md-editor/dist/mdeditor.css"
+import "@uiw/react-md-editor/dist/mdeditor.min.css"
+
 // layout
 import "../styles/layout.css"
 import "../styles/components/header.css"

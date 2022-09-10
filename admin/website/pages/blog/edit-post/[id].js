@@ -1,11 +1,17 @@
 import React, { Component } from "react"
+import dynamic from "next/dynamic"
 import Head from "next/head"
 import moment from "moment"
-import MDEditor from '@uiw/react-md-editor'
+import rehypeSanitize from "rehype-sanitize"
 
 import Header from "../../../components/header"
 import Sidebar from "../../../components/sidebar"
 import DeleteBlogPostModal from "../../../components/modals/deleteBlogPost"
+
+const MDEditor = dynamic(
+    () => import("@uiw/react-md-editor").then((mod) => mod.default),
+    { ssr: false }
+)
 
 export default class extends Component {
     constructor(props) {
@@ -187,11 +193,12 @@ export default class extends Component {
                                 </div>
                                 <div className="edit-blog-post-form-section-code-content-input">
                                     <MDEditor
-                                        className="edit-blog-post-form-section-mdeditor"
-                                        value={markdownInputValue}
-                                        onChange={updateMarkdownInputValue}
+                                        value={this.state.markdownInputValue}
+                                        onChange={this.updateMarkdownInputValue}
+                                        previewOptions={{
+                                            rehypePlugins: [[rehypeSanitize]],
+                                        }}
                                     />
-                                    <MDEditor.Markdown source={markdownInputValue} style={{ whiteSpace: 'pre-wrap' }} />
                                 </div>
                             </div>
                             <div className="edit-blog-post-seo-section-title">
@@ -215,14 +222,14 @@ export default class extends Component {
                                     <span>Meta Description</span>
                                 </div>
                                 <div className="edit-blog-post-form-section-input">
-                  <textarea
-                      type="text"
-                      value={this.state.metaDescriptionInputValue}
-                      onChange={this.updateMetaDescriptionInputValue}
-                  />
+                                    <textarea
+                                        type="text"
+                                        value={this.state.metaDescriptionInputValue}
+                                        onChange={this.updateMetaDescriptionInputValue}
+                                    />
                                     <span className={this.state.metaDescriptionCharLeft > 0 ? "char-length green" : "char-length red"}>
-                    {this.state.metaDescriptionCharLeft}
-                  </span>
+                                        {this.state.metaDescriptionCharLeft}
+                                    </span>
                                 </div>
                             </div>
                             <div className="edit-blog-post-form-btns-section">

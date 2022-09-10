@@ -14,8 +14,11 @@
   "dependencies": {
     "@uiw/react-md-editor": "^3.18.1",
     "axios": "^0.27.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "moment": "^2.29.4",
     "next": "^12.2.5",
+    "next-remove-imports": "^1.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rehype-sanitize": "^5.0.1"
