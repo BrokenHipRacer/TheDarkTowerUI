@@ -4,6 +4,8 @@ import Head from "next/head"
 import Header from "../../components/header"
 import Sidebar from "../../components/sidebar"
 
+import authUser from "../../api/admin-user/auth"
+
 export default class extends Component {
     constructor(props) {
         super(props)
@@ -16,6 +18,17 @@ export default class extends Component {
             filenameSpacesError: false,
             success: false
         }
+    }
+
+    static async getInitialProps ({req, res}) {
+        const authResult = await authUser(req)
+
+        if (!authResult.success) {
+            res.writeHead(302, {Location: "/login"})
+            res.end()
+        }
+
+        return {}
     }
 
     handleInputChange = (event) => {

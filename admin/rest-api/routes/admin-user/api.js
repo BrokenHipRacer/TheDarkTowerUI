@@ -4,6 +4,16 @@ const { v4: uuidv4 } = require("uuid")
 const AdminUserModel = require("../../models/admin-user")
 
 module.exports = {
+    authenticateAdminUser: function(userId, authToken, callback) {
+        AdminUserModel.findOne({id: userId}).exec(function(error, user) {
+            if (error || !user || authToken !== user.authToken || moment().unix() > user.authTokenExpiresTimestamp) {
+                callback({success: false})
+            } else {
+                callback({success: true})
+            }
+        })
+    },
+
     /*
     createNewAdminUser: function(email, password, callback) {
         const newAdminUser = new AdminUserModel({

@@ -1,9 +1,9 @@
 const express = require("express")
 const tldjs = require("tldjs")
 
-const api = require("./api.js")
-
-const config = require("../../config.js")
+const api = require("./api")
+const config = require("../../config")
+const authAdminUser = require("../../middlewares/index").authAdminUser
 
 const app = express.Router()
 
@@ -13,7 +13,21 @@ api.createNewAdminUser("<email address>", "<password>", function(apiResponse) {
 })
 */
 
-//think I need to change this to httpsOnly
+app.get("/users/authenticate", function(req, res) {
+    const cookies = req.cookies.adminUser ? req.cookies.adminUser.split("&") : null
+
+    let authUserId = cookies ? cookies[0] : ""
+    let authToken = cookies ? cookies[1] : ""
+
+    if (!authUserId || !authToken) {
+        res.json({success: false})
+    } else {
+        api.authenticateAdminUser(authUserId, authToken, function(apiResponse) {
+            res.json(apiResponse)
+        })
+    }
+})
+
 app.put("/users/login", function(req, res) {
     if (!req.body.email || !req.body.password) {
         res.json({success: false})

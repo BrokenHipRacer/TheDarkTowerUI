@@ -7,6 +7,8 @@ import rehypeSanitize from "rehype-sanitize"
 import Header from "../../components/header"
 import Sidebar from "../../components/sidebar"
 
+import authUser from "../../api/admin-user/auth"
+
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor").then((mod) => mod.default),
     { ssr: false }
@@ -30,6 +32,17 @@ export default class CreateNewPost extends Component {
             metaDescriptionInputValue: "",
             metaDescriptionCharLeft: 160
         }
+    }
+
+    static async getInitialProps ({req, res}) {
+        const authResult = await authUser(req)
+
+        if (!authResult.success) {
+            res.writeHead(302, { Location: "/login" })
+            res.end()
+        }
+
+        return {}
     }
 
     updateTitleInputValue = (event) => {
