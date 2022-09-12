@@ -60,5 +60,24 @@ module.exports = {
                 })
             }
         })
+    },
+
+    removeAdminUserAuthToken: function(userId, callback) {
+        AdminUserModel.findOne({id: userId}).exec(function(error, user) {
+            if (error || !user) {
+                callback({success: false})
+            } else {
+                user.authToken = null
+                user.authTokenExpiresTimestamp = null
+
+                user.save(function(saveError) {
+                    if (saveError) {
+                        callback({success: false})
+                    } else {
+                        callback({success: true})
+                    }
+                })
+            }
+        })
     }
 }

@@ -53,4 +53,15 @@ app.put("/users/login", function(req, res) {
     }
 })
 
+app.put("/users/logout", authAdminUser, function(req, res) {
+    if (!res.locals.authSuccess) {
+        res.json({authSuccess: false})
+    } else {
+        api.removeAdminUserAuthToken(res.locals.authUserId, function(apiResponse) {
+            apiResponse.authSuccess = true
+            res.json(apiResponse)
+        })
+    }
+})
+
 module.exports = app
