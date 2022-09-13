@@ -64,4 +64,13 @@ app.put("/users/logout", authAdminUser, function(req, res) {
     }
 })
 
+app.put("/users/remove-admin-user-cookie", function(req, res) {
+    res.clearCookie("adminUser", {
+        path: "/",
+        domain: process.env.NODE_ENV === "production" ? tldjs.parse(config.prodAdminURL).domain : ""
+    })
+
+    res.json({success: true})
+})
+
 module.exports = app
