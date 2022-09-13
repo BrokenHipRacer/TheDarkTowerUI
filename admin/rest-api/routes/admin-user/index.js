@@ -28,6 +28,19 @@ app.get("/users/authenticate", function(req, res) {
     }
 })
 
+app.put("/users/change-password", authAdminUser, function(req, res) {
+    if (!req.body.currentPassword || !req.body.newPassword) {
+        res.json({success: false})
+    } else if (!res.locals.authSuccess) {
+        res.json({authSuccess: false})
+    } else {
+        api.changeAdminUserPassword(res.locals.authUserId, req.body.currentPassword, req.body.newPassword, function(apiResponse) {
+            apiResponse.authSuccess = true
+            res.json(apiResponse)
+        })
+    }
+})
+
 app.put("/users/login", function(req, res) {
     if (!req.body.email || !req.body.password) {
         res.json({success: false})

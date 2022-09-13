@@ -34,6 +34,32 @@ module.exports = {
     },
     */
 
+    changeAdminUserPassword: function(userId, currentPassword, newPassword, callback) {
+        AdminUserModel.findOne({id: userId}).exec(function(error, user) {
+            if (error || !user) {
+                callback({submitError: true})
+            } else {
+                user.comparePassword(currentPassword, function(matchError, isMatch) {
+                    if (matchError) {
+                        callback({submitError: true})
+                    } else if (!isMatch) {
+                        callback({invalidPasswordCredentialError: true})
+                    } else {
+                        user.password = newPassword
+
+                        user.save(function(saveError) {
+                            if (saveError) {
+                                callback({submitError: true})
+                            } else {
+                                callback({success: true})
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    },
+
     loginAdminUser: function(email, password, callback) {
         AdminUserModel.findOne({email: email}).exec(function(error, user) {
             if (error || !user) {
