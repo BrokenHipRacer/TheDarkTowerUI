@@ -2,6 +2,7 @@ const path = require("path")
 const moment = require("moment")
 const fs = require("fs")
 const formatXml = require("xml-formatter")
+const cmd = require("node-cmd")
 
 const BlogPostModel = require("../../models/post")
 
@@ -10,6 +11,11 @@ const config = require("../../config")
 const sitemapDirLocation = path.join(__dirname, "..", "..", "..", "..", "frontend", "website", "public", "sitemap.xml")
 
 module.exports = {
+    restartFrontendWebsitePm2Process: function(callback) {
+        cmd.run("pm2 restart frontend-website")
+        callback({success: true})
+    },
+
     updateSitemapXmlFile: function(callback) {
         const now = moment().unix()
 

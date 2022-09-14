@@ -7,6 +7,7 @@ import Sidebar from "../components/sidebar"
 import authUser from "../api/admin-user/auth"
 
 import updateSitemap from "../api/sitemap/updateSitemap"
+import restartPm2Process from "../api/sitemap/restartPm2Process"
 
 export default class extends Component {
     constructor(props) {
@@ -59,7 +60,19 @@ export default class extends Component {
     restartPm2Request = () => {
         this.setState({restartPm2Loading: true, restartPm2Error: false, restartPm2Success: false})
 
-        // call restart PM2 function
+        const self = this
+
+        restartPm2Process(function(apiResponse) {
+            if (apiResponse.submitError) {
+                self.setState({restartPm2Loading: false, restartPm2Error: true, restartPm2Success: false})
+            } else if (!apiResponse.authSuccess) {
+                window.location.href = "/login"
+            } else if (!apiResponse.success) {
+                self.setState({restartPm2Loading: false, restartPm2Error: true, restartPm2Success: false})
+            } else {
+                self.setState({restartPm2Loading: false, restartPm2Error: false, restartPm2Success: true})
+            }
+        })
     }
 
     pingSearchEnginesRequest = () => {
