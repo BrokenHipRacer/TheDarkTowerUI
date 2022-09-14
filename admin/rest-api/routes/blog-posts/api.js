@@ -1,8 +1,43 @@
 const moment = require("moment")
+const { v4 : uuid4v } = require("uuid")
 
 const BlogPostModel = require("../../models/post")
 
 module.exports = {
+    createNewBlogPost: function(title, urlTitle, dateTimestamp, tags, thumbnailImageUrl, markdownContent, seoTitleTag, seoMetaDescription, callback) {
+        BlogPostModel.findOne({$or: [{title: title}, {urlTitle: urlTitle}]}).exec(function(error, post) {
+            if (error) {
+                callback({submitError: true})
+            } else if (post) {
+                callback({alreadyExistsError: true})
+            } else {
+                const arrayOfTags = tags.split(",").map(function(tag) {
+                    return tag.trim()
+                })
+
+                const newBlogPost = new BlogPostModel({
+                    id: uuid4v(),
+                    title: title,
+                    urlTitle: urlTitle,
+                    dateTimestamp: dateTimestamp,
+                    tags: arrayOfTags,
+                    thumbnailImageUrl: thumbnailImageUrl,
+                    markdownContent: markdownContent,
+                    seoTitleTag: seoTitleTag,
+                    seoMetaDescription:seoMetaDescription
+                })
+
+                newBlogPost.save(function(saveError) {
+                    if (saveError) {
+                        callback({submitError: true})
+                    } else {
+                        callback({success: true})
+                    }
+                })
+            }
+        })
+    },
+
     getAllBlogPosts: function(callback) {
         const now = moment().unix()
 
