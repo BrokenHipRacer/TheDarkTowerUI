@@ -32,6 +32,17 @@ app.get("/images/get-all-images", authAdminUser, (req, res) => {
     }
 })
 
+app.get("/images/get-image-by-filename", authAdminUser, (req, res) => {
+    if (!res.locals.authSuccess) {
+        res.json({authSuccess: false})
+    } else {
+        api.getImageByFilename(req.query.filename, function(response) {
+            response.authSuccess = true
+            res.json(response)
+        })
+    }
+})
+
 app.post("/images/upload", authAdminUser, (req, res) => {
     if (!res.locals.authSuccess) {
         res.json({authSuccess: false})
