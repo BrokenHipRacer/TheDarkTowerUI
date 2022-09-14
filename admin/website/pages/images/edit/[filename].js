@@ -6,6 +6,8 @@ import Sidebar from "../../../components/sidebar"
 import DeleteImageModal from "../../../components/modals/deleteImage"
 
 import getImageByFilename from "../../../api/images/getImageByFilename"
+import updateImageFilename from "../../../api/images/updateImageFilename"
+import checkIfImageFilenameExists from "../../../api/images/checkIfImageFilenameExists"
 
 export default class extends Component {
     constructor(props) {
@@ -45,7 +47,32 @@ export default class extends Component {
     }
 
     submitUpdateRequest = () => {
-        this.setState({updateLoading: true, updateSuccess: false})
+        if (!this.state.filenameInputValue) {
+            this.setState({updateSubmitError: true, updateSuccess: false})
+        } else {
+            this.setState({updateLoading: true, updateSuccess: false})
+
+            const self = this
+
+            checkIfImageFilenameExists(this.state.filenameInputValue, function(existsResponse) {
+                if (!existsResponse.success) {
+                    self.setState({updateSubmitError: false, filenameAlreadyExistsError: true, updateSuccess: false, updateLoading: false})
+                } else {
+                    updateImageFilename(self.props.filename, self.state.filenameInputValue, function(response) {
+                        if (response.submitError) {
+                            self.setState({updateSubmitError: true, filenameAlreadyExistsError: false, updateSuccess: false, updateLoading: false})
+                        } else if (!response.authSuccess) {
+                            window.location.href = "/login"
+                        } else if (!response.success) {
+                            self.setState({updateSubmitError: true, filenameAlreadyExistsError: false, updateSuccess: false, updateLoading: false})
+                        } else {
+                            self.setState({updateLoading: false})
+                            window.location.href = `/images/edit/${self.state.filenameInputValue}`
+                        }
+                    })
+                }
+            })
+        }
     }
 
     hideDeleteImageModal = () => {

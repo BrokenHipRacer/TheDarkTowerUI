@@ -40,5 +40,18 @@ module.exports = {
                 })
             }
         })
+    },
+
+    updateImageFilename: function(originalFilename, newFilename, callback) {
+        fs.rename(`${assetsDirPath}/${originalFilename}`, `${assetsDirPath}/${newFilename}`, function(error) {
+            if (error) {
+                callback({submitError: true})
+            } else {
+                callback({
+                    success: true,
+                    newFilename: newFilename
+                })
+            }
+        })
     }
 }

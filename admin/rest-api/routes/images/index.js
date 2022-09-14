@@ -43,6 +43,17 @@ app.get("/images/get-image-by-filename", authAdminUser, (req, res) => {
     }
 })
 
+app.put("/images/update-image-filename", authAdminUser, (req, res) => {
+    if (!res.locals.authSuccess) {
+        res.json({authSuccess: false})
+    } else {
+        api.updateImageFilename(req.body.originalFilename, req.body.newFilename, function(response) {
+            response.authSuccess = true
+            res.json(response)
+        })
+    }
+})
+
 app.post("/images/upload", authAdminUser, (req, res) => {
     if (!res.locals.authSuccess) {
         res.json({authSuccess: false})
