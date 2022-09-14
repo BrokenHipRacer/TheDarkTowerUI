@@ -6,6 +6,8 @@ import Sidebar from "../components/sidebar"
 
 import authUser from "../api/admin-user/auth"
 
+import updateSitemap from "../api/sitemap/updateSitemap"
+
 export default class extends Component {
     constructor(props) {
         super(props)
@@ -39,7 +41,19 @@ export default class extends Component {
     updateSitemapRequest = () => {
         this.setState({updateSitemapLoading: true, updateSitemapError: false, updateSitemapSuccess: false})
 
-        // call update sitemap function
+        const self = this
+
+        updateSitemap(function(apiResponse) {
+            if (apiResponse.submitError) {
+                self.setState({updateSitemapLoading: false, updateSitemapError: true, updateSitemapSuccess: false})
+            } else if (!apiResponse.authSuccess) {
+                window.location.href = "/login"
+            } else if (!apiResponse.success) {
+                self.setState({updateSitemapLoading: false, updateSitemapError: true, updateSitemapSuccess: false})
+            } else {
+                self.setState({updateSitemapLoading: false, updateSitemapError: false, updateSitemapSuccess: true})
+            }
+        })
     }
 
     restartPm2Request = () => {
