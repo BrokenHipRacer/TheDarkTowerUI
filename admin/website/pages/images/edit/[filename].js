@@ -8,6 +8,7 @@ import DeleteImageModal from "../../../components/modals/deleteImage"
 import getImageByFilename from "../../../api/images/getImageByFilename"
 import updateImageFilename from "../../../api/images/updateImageFilename"
 import checkIfImageFilenameExists from "../../../api/images/checkIfImageFilenameExists"
+import deleteImage from "../../../api/images/deleteImage"
 
 export default class extends Component {
     constructor(props) {
@@ -85,6 +86,20 @@ export default class extends Component {
 
     deleteImageRequest = () => {
         this.setState({deleteLoading: true, deleteError: false})
+
+        const self = this
+
+        deleteImage(this.props.filename, function(response) {
+            if (response.submitError) {
+                self.setState({deleteLoading: false, deleteError: true})
+            } else if (!response.authSuccess) {
+                window.location.href = "/login"
+            } else if (!response.success) {
+                self.setState({deleteLoading: false, deleteError: true})
+            } else {
+                window.location.href = "/images"
+            }
+        })
     }
 
     render () {

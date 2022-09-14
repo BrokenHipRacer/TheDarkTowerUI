@@ -17,6 +17,16 @@ module.exports = {
         })
     },
 
+    deleteImageByFilename: function(filename, callback) {
+        fs.unlink(`${assetsDirPath}/${filename}`, function(error) {
+            if (error) {
+                callback({submitError: true})
+            } else {
+                callback({success: true})
+            }
+        })
+    },
+
     getAllImages: function(callback) {
         fs.readdir(assetsDirPath, function(error, files) {
             if (error) {

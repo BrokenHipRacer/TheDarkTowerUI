@@ -21,6 +21,17 @@ app.get("/images/check-if-filename-exists", (req, res) => {
     })
 })
 
+app.put("/images/delete-image", authAdminUser, (req, res) => {
+    if (!res.locals.authSuccess) {
+        res.json({authSuccess: false})
+    } else {
+        api.deleteImageByFilename(req.body.filename, function(response) {
+            response.authSuccess = true
+            res.json(response)
+        })
+    }
+})
+
 app.get("/images/get-all-images", authAdminUser, (req, res) => {
     if (!res.locals.authSuccess) {
         res.json({authSuccess: false})
