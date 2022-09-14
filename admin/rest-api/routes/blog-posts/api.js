@@ -38,6 +38,16 @@ module.exports = {
         })
     },
 
+    deleteBlogPost: function(id, callback) {
+        BlogPostModel.findOneAndRemove({id: id}).exec(function(error, post) {
+            if (error || !post) {
+                callback({submitError: true})
+            } else {
+                callback({success: true})
+            }
+        })
+    },
+
     editBlogPost: function(id, title, urlTitle, dateTimestamp, tags, thumbnailImageUrl, markdownContent, seoTitleTag, seoMetaDescription, callback) {
         const arrayOfTags = tags.split(",").map(function(tag) {
             return tag.trim()

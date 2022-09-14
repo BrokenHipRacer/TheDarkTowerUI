@@ -8,8 +8,9 @@ import Header from "../../../components/header"
 import Sidebar from "../../../components/sidebar"
 import DeleteBlogPostModal from "../../../components/modals/deleteBlogPost"
 
-import getBlogPostById from "../../../api/blog-posts/getPostById";
+import deleteBlogPost from "../../../api/blog-posts/deleteBlogPost"
 import editBlogPost from "../../../api/blog-posts/editBlogPost"
+import getBlogPostById from "../../../api/blog-posts/getPostById"
 
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor").then((mod) => mod.default),
@@ -186,6 +187,20 @@ export default class extends Component {
 
     deleteBlogPostRequest = () => {
         this.setState({deleteLoading: true})
+
+        const self = this
+
+        deleteBlogPost(this.props.post.id, function(apiResponse) {
+            if (apiResponse.submitError) {
+                self.setState({deleteError: true, deleteLoading: false, showDeleteModal: false})
+            } else if (!apiResponse.authSuccess) {
+                window.location.href = "/login"
+            } else if (!apiResponse.success) {
+                self.setState({deleteError: true, deleteLoading: false, showDeleteModal: false})
+            } else {
+                window.location.href = "/"
+            }
+        })
     }
 
     render () {

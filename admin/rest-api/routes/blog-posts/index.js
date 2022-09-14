@@ -38,6 +38,19 @@ app.post("/blog-posts/create-new", authAdminUser, function(req, res) {
     }
 })
 
+app.put("/blog-posts/delete", authAdminUser, function(req, res) {
+    if (!req.body.id) {
+        res.json({success: false})
+    } else if (!res.locals.authSuccess) {
+        res.json({authSuccess: false})
+    } else {
+        api.deleteBlogPost(req.body.id, function(apiResponse) {
+            apiResponse.authSuccess = true
+            res.json(apiResponse)
+        })
+    }
+})
+
 app.put("/blog-posts/edit", authAdminUser, function(req, res) {
     if (
         !req.body.id ||
