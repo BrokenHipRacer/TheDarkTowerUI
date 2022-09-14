@@ -47,6 +47,7 @@ app.use(cookieParser())
 
 app.use(require("./routes/admin-user/index"))
 app.use(require("./routes/blog-posts/index"))
+app.use(require("./routes/images/index"))
 
 app.listen(PORT, function () {
     console.log(`Express app listening on port ${PORT}`)
