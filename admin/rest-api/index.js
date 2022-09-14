@@ -6,7 +6,7 @@ const cors = require("cors")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 
-//const config = require("./config.js")
+const config = require("./config")
 
 dotenv.config()
 
@@ -16,7 +16,10 @@ const app = express()
 
 const mongoString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@alsbergeblogatlastemp.ickwxsm.mongodb.net/blog?retryWrites=true&w=majority`
 
-mongoose.connect(mongoString, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+mongoose.connect(mongoString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 
 mongoose.connection.on("error", function(err) {
     if (process.env.NODE_ENV === "development") {
@@ -43,6 +46,9 @@ app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }))
 app.use(cookieParser())
 
 app.use(require("./routes/admin-user/index"))
+app.use(require("./routes/blog-posts/index"))
+app.use(require("./routes/images/index"))
+app.use(require("./routes/sitemap/index"))
 
 app.listen(PORT, function () {
     console.log(`Express app listening on port ${PORT}`)

@@ -4,6 +4,12 @@ import Head from "next/head"
 import Header from "../components/header"
 import Sidebar from "../components/sidebar"
 
+import authUser from "../api/admin-user/auth"
+
+import updateSitemap from "../api/sitemap/updateSitemap"
+import restartPm2Process from "../api/sitemap/restartPm2Process"
+import pingSearchEngines from "../api/sitemap/pingSearchEngines"
+
 export default class extends Component {
     constructor(props) {
         super(props)
@@ -23,22 +29,69 @@ export default class extends Component {
         }
     }
 
+    static async getInitialProps ({req, res}) {
+        const authResult = await authUser(req)
+
+        if (!authResult.success) {
+            res.writeHead(302, { Location: "/login" })
+            res.end()
+        }
+
+        return {}
+    }
+
     updateSitemapRequest = () => {
         this.setState({updateSitemapLoading: true, updateSitemapError: false, updateSitemapSuccess: false})
 
-        // call update sitemap function
+        const self = this
+
+        updateSitemap(function(apiResponse) {
+            if (apiResponse.submitError) {
+                self.setState({updateSitemapLoading: false, updateSitemapError: true, updateSitemapSuccess: false})
+            } else if (!apiResponse.authSuccess) {
+                window.location.href = "/login"
+            } else if (!apiResponse.success) {
+                self.setState({updateSitemapLoading: false, updateSitemapError: true, updateSitemapSuccess: false})
+            } else {
+                self.setState({updateSitemapLoading: false, updateSitemapError: false, updateSitemapSuccess: true})
+            }
+        })
     }
 
     restartPm2Request = () => {
         this.setState({restartPm2Loading: true, restartPm2Error: false, restartPm2Success: false})
 
-        // call restart PM2 function
+        const self = this
+
+        restartPm2Process(function(apiResponse) {
+            if (apiResponse.submitError) {
+                self.setState({restartPm2Loading: false, restartPm2Error: true, restartPm2Success: false})
+            } else if (!apiResponse.authSuccess) {
+                window.location.href = "/login"
+            } else if (!apiResponse.success) {
+                self.setState({restartPm2Loading: false, restartPm2Error: true, restartPm2Success: false})
+            } else {
+                self.setState({restartPm2Loading: false, restartPm2Error: false, restartPm2Success: true})
+            }
+        })
     }
 
     pingSearchEnginesRequest = () => {
         this.setState({pingLoading: true, pingError: false, pingSuccess: false})
 
-        // call ping search engines function
+        const self = this
+
+        pingSearchEngines(function(apiResponse) {
+            if (apiResponse.submitError) {
+                self.setState({pingLoading: false, pingError: true, pingSuccess: false})
+            } else if (!apiResponse.authSuccess) {
+                window.location.href = "/login"
+            } else if (!apiResponse.success) {
+                self.setState({pingLoading: false, pingError: true, pingSuccess: false})
+            } else {
+                self.setState({pingLoading: false, pingError: false, pingSuccess: true})
+            }
+        })
     }
 
     render () {

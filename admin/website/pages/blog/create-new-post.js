@@ -7,6 +7,9 @@ import rehypeSanitize from "rehype-sanitize"
 import Header from "../../components/header"
 import Sidebar from "../../components/sidebar"
 
+import authUser from "../../api/admin-user/auth"
+import createNewPost from "../../api/blog-posts/createNewPost";
+
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor").then((mod) => mod.default),
     { ssr: false }
@@ -30,6 +33,17 @@ export default class CreateNewPost extends Component {
             metaDescriptionInputValue: "",
             metaDescriptionCharLeft: 160
         }
+    }
+
+    static async getInitialProps ({req, res}) {
+        const authResult = await authUser(req)
+
+        if (!authResult.success) {
+            res.writeHead(302, { Location: "/login" })
+            res.end()
+        }
+
+        return {}
     }
 
     updateTitleInputValue = (event) => {
@@ -91,7 +105,49 @@ export default class CreateNewPost extends Component {
     }
 
     submitCreateNewPostRequest = () => {
-        this.setState({submitError: false, errorMsg: "", loading: true})
+        if (!this.state.titleInputValue) {
+            this.setState({submitError: true, errorMsg: "Title field is required."})
+        } else if (!this.state.urlTitleInputValue) {
+            this.setState({submitError: true, errorMsg: "URL title field is required."})
+        } else if (!this.state.dateInputValue) {
+            this.setState({submitError: true, errorMsg: "Date field is required."})
+        } else if (!this.state.tagsInputValue) {
+            this.setState({submitError: true, errorMsg: "Date field is required."})
+        } else if (!this.state.imageUrlInputValue) {
+            this.setState({submitError: true, errorMsg: "Image URL field is required."})
+        } else if (!this.state.markdownInputValue) {
+            this.setState({submitError: true, errorMsg: "Markdown content field is required."})
+        } else if (!this.state.seoTitleTagInputValue) {
+            this.setState({submitError: true, errorMsg: "SEO title field is required."})
+        } else if (!this.state.metaDescriptionInputValue) {
+            this.setState({submitError: true, errorMsg: "Meta description field is required."})
+        } else {
+            this.setState({submitError: false, errorMsg: "", loading: true})
+
+            const self = this
+
+            createNewPost(
+                this.state.titleInputValue,
+                this.state.urlTitleInputValue,
+                moment(this.state.dateInputValue).valueOf() / 1000,
+                this.state.tagsInputValue,
+                this.state.imageUrlInputValue,
+                this.state.markdownInputValue,
+                this.state.seoTitleTagInputValue,
+                this.state.metaDescriptionInputValue,
+                function(apiResponse) {
+                    if (!apiResponse.authSuccess) {
+                        window.location.href = "/login"
+                    } else if (apiResponse.alreadyExistsError) {
+                        self.setState({submitError: true, errorMsg: "Blog post with that title already exists.", loading: false})
+                    } else if (apiResponse.submitError || !apiResponse.success) {
+                        self.setState({submitError: true, errorMsg: "An error occurred.", loading: false})
+                    } else {
+                        window.location.href = "/"
+                    }
+                }
+            )
+        }
     }
 
     render () {

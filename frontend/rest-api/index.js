@@ -12,7 +12,10 @@ const app = express()
 
 const mongoString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@alsbergeblogatlastemp.ickwxsm.mongodb.net/blog?retryWrites=true&w=majority`
 
-mongoose.connect(mongoString, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(mongoString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 
 mongoose.connection.on("error", function(error) {
     if (process.env.NODE_ENV === "development") {

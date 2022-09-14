@@ -3,6 +3,7 @@ import { Component } from "react"
 import Header from "../components/header"
 import Footer from "../components/footer"
 import HeadMetadata from "../components/headMetadata"
+import GoogleAnalytics from "../components/googleAnalytics"
 
 export default class extends Component {
     static getInitialProps({ req, res, err }) {
@@ -19,6 +20,7 @@ export default class extends Component {
                 <HeadMetadata
                     title="Error | Andrew Alsberge Blog"
                 />
+                <GoogleAnalytics />
                 <Header />
                 <div className="error-container">
                     {
