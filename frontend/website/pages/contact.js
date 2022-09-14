@@ -3,6 +3,7 @@ import { Component } from "react"
 import Header from "../components/header"
 import Footer from "../components/footer"
 import HeadMetadata from "../components/headMetadata"
+import GoogleAnalytics from "../components/googleAnalytics"
 
 export default class extends Component {
     render () {
@@ -12,6 +13,7 @@ export default class extends Component {
                     title="Contact | Andrew Alsberge Blog"
                     metaDescription="If you have questions, comments, concern, critiques, or ideas, please send me an email at andrew@alsberge.email."
                 />
+                <GoogleAnalytics />
                 <Header />
                 <div className="contact-container">
                     <div className="contact-section">

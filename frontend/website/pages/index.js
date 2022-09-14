@@ -3,6 +3,7 @@ import { Component } from "react"
 import Header from "../components/header"
 import Footer from "../components/footer"
 import HeadMetadata from "../components/headMetadata"
+import GoogleAnalytics from "../components/googleAnalytics"
 
 import getFiveNewestPosts from "../api/getFiveNewestPosts"
 
@@ -22,6 +23,7 @@ export default class extends Component {
                     title="Andrew Alsberge Blog"
                     metaDescription="Andrew Alsberge is a full stack developer and quality engineer."
                 />
+                <GoogleAnalytics />
                 <Header />
                 <div className="homepage-container">
                     <div className="homepage-introduction">

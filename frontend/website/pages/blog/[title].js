@@ -8,6 +8,7 @@ import "prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js"
 import Header from "../../components/header"
 import Footer from "../../components/footer"
 import HeadMetadata from "../../components/headMetadata"
+import GoogleAnalytics from "../../components/googleAnalytics"
 
 import getBlogPostByUrlTitle from "../../api/getBlogPostByUrlTitle"
 
@@ -34,6 +35,7 @@ export default class extends Component {
                     title={this.props.post ? this.props.post.seoTitleTag : "Blog Post | Andrew Alsberge Blog"}
                     metaDescription={this.props.post && this.props.post.seoMetaDescription}
                 />
+                <GoogleAnalytics />
                 <Header />
                 <div className="blog-post-container">
                     {

@@ -4,6 +4,7 @@ import moment from "moment";
 import Header from "../../../components/header"
 import Footer from "../../../components/footer"
 import HeadMetadata from "../../../components/headMetadata"
+import GoogleAnalytics from "../../../components/googleAnalytics"
 
 import getBlogPostsByTag from "../../../api/getBlogPostsByTag"
 
@@ -25,6 +26,7 @@ export default class extends Component {
                     title={`Blog posts tagged as "${this.props.tag}" | Andrew Alsberge Blog`}
                     metaDescription={`All blog posts tagged as "${this.props.tag}".`}
                 />
+                <GoogleAnalytics />
                 <Header />
                 <div className="blog-posts-container">
                     <h1>Blog posts tagged as <u>{this.props.tag}</u></h1>
