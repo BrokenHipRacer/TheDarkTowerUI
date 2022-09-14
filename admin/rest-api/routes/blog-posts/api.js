@@ -62,5 +62,17 @@ module.exports = {
                         })
                 }
             })
+    },
+
+    getBlogPostById: function(id, callback) {
+        BlogPostModel.findOne({id: id}).exec(function(error, post) {
+            if (error) {
+                callback({getDataError: true})
+            } else if (!post) {
+                callback({notFoundError: true})
+            } else {
+                callback({success: true, post: post})
+            }
+        })
     }
 }

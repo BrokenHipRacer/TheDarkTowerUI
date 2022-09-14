@@ -8,6 +8,8 @@ import Header from "../../../components/header"
 import Sidebar from "../../../components/sidebar"
 import DeleteBlogPostModal from "../../../components/modals/deleteBlogPost"
 
+import getBlogPostById from "../../../api/blog-posts/getPostById";
+
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor").then((mod) => mod.default),
     { ssr: false }
@@ -17,24 +19,41 @@ export default class extends Component {
     constructor(props) {
         super(props)
 
+        const post = this.props.post
+
         this.state = {
             submitLoading: false,
             submitError: false,
             errorMsg: "",
-            titleInputValue: "Blog Post Title",
-            urlTitleInputValue: "blog-post-title",
-            dateInputValue: "2050-01-01T12:00",
-            tagsInputValue: "html, css, javascript",
-            imageUrlInputValue: "https://assets.coderrocketfuel.com/coding-blog-git-thumbnail.png",
-            markdownInputValue: "# Markdown content",
-            seoTitleTagInputValue: "Blog Post Title | Coding Blog",
-            seoTitleTagCharLeft: 60,
-            metaDescriptionInputValue: "The seo meta description for the blog post goes here.",
-            metaDescriptionCharLeft: 160,
+            titleInputValue: post && post.title,
+            urlTitleInputValue: post && post.urlTitle,
+            dateInputValue: post && moment.unix(post.dateTimestamp).format("YYYY-MM-DD") + "T" + moment.unix(post.dateTimestamp).format("HH:mm"),
+            tagsInputValue: post && post.tags.join(", "),
+            imageUrlInputValue: post && post.thumbnailImageUrl,
+            markdownInputValue: post && post.markdownContent,
+            seoTitleTagInputValue: post && post.seoTitleTag,
+            seoTitleTagCharLeft: post && 60 - post.seoTitleTag.length,
+            metaDescriptionInputValue: post && post.seoMetaDescription,
+            metaDescriptionCharLeft: post && 160 - post.seoMetaDescription.length,
             //delete modal
             deleteError: false,
             deleteLoading: false,
             showDeleteModal: false
+        }
+    }
+
+    static async getInitialProps ({req, res, query}) {
+        const apiResult = await getBlogPostById(query.id, req)
+
+        if (!apiResult.authSuccess) {
+            res.writeHead(302, { Location: "/login" })
+            res.end()
+        }
+
+        return {
+            post: apiResult && apiResult.post,
+            getDataError: apiResult && apiResult.getDataError,
+            notFoundError: apiResult && apiResult.notFoundError
         }
     }
 
@@ -121,147 +140,158 @@ export default class extends Component {
                 <Header />
                 <Sidebar page="blog-posts" />
                 <div className="layout-content-container">
-                    <div className="edit-blog-post-content">
-                        <div className="edit-blog-post-header">
-                            <span>Edit Blog Post</span>
-                        </div>
-                        <div className="edit-blog-post-form-container">
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Title</span>
+                    {
+                        !this.props.getDataError && !this.props.notFoundError ?
+                            <div className="edit-blog-post-content">
+                                <div className="edit-blog-post-header">
+                                    <span>Edit Blog Post</span>
                                 </div>
-                                <div className="edit-blog-post-form-section-input">
-                                    <input
-                                        type="text"
-                                        value={this.state.titleInputValue}
-                                        onChange={this.updateTitleInputValue}
-                                    />
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Url Title</span>
-                                </div>
-                                <div className="edit-blog-post-form-section-input">
-                                    <input
-                                        type="text"
-                                        value={this.state.urlTitleInputValue}
-                                        onChange={this.updateUrlTitleInputValue}
-                                    />
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Date</span>
-                                </div>
-                                <div className="edit-blog-post-form-section-input">
-                                    <input
-                                        type="datetime-local"
-                                        value={this.state.dateInputValue}
-                                        onChange={this.updateDateInputValue}
-                                    />
-                                    <span onClick={() => this.setDateInputValueToNow()} className="edit-blog-post-form-section-date-input-now">Now</span>
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Image URL</span>
-                                </div>
-                                <div className="edit-blog-post-form-section-input">
-                                    <input
-                                        type="text"
-                                        value={this.state.imageUrlInputValue}
-                                        onChange={this.updateImageUrlInputValue}
-                                    />
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Tags</span>
-                                </div>
-                                <div className="edit-blog-post-form-section-input">
-                                    <input
-                                        type="text"
-                                        value={this.state.tagsInputValue}
-                                        onChange={this.updateTagsInputValue}
-                                    />
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Markdown Content</span>
-                                </div>
-                                <div className="edit-blog-post-form-section-code-content-input">
-                                    <MDEditor
-                                        value={this.state.markdownInputValue}
-                                        onChange={this.updateMarkdownInputValue}
-                                        previewOptions={{
-                                            rehypePlugins: [[rehypeSanitize]],
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-seo-section-title">
-                                <span>SEO</span>
-                            </div>
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Title Tag</span>
-                                </div>
-                                <div className="edit-blog-post-form-section-input">
-                                    <input
-                                        type="text"
-                                        value={this.state.seoTitleTagInputValue}
-                                        onChange={this.updateSeoTitleTagInputValue}
-                                    />
-                                    <span className={this.state.seoTitleTagCharLeft > 0 ? "char-length green" : "char-length red"}>{this.state.seoTitleTagCharLeft}</span>
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-form-section">
-                                <div className="edit-blog-post-form-section-label">
-                                    <span>Meta Description</span>
-                                </div>
-                                <div className="edit-blog-post-form-section-input">
+                                <div className="edit-blog-post-form-container">
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Title</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-input">
+                                            <input
+                                                type="text"
+                                                value={this.state.titleInputValue}
+                                                onChange={this.updateTitleInputValue}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Url Title</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-input">
+                                            <input
+                                                type="text"
+                                                value={this.state.urlTitleInputValue}
+                                                onChange={this.updateUrlTitleInputValue}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Date</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-input">
+                                            <input
+                                                type="datetime-local"
+                                                value={this.state.dateInputValue}
+                                                onChange={this.updateDateInputValue}
+                                            />
+                                            <span onClick={() => this.setDateInputValueToNow()} className="edit-blog-post-form-section-date-input-now">Now</span>
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Image URL</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-input">
+                                            <input
+                                                type="text"
+                                                value={this.state.imageUrlInputValue}
+                                                onChange={this.updateImageUrlInputValue}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Tags</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-input">
+                                            <input
+                                                type="text"
+                                                value={this.state.tagsInputValue}
+                                                onChange={this.updateTagsInputValue}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Markdown Content</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-code-content-input">
+                                            <MDEditor
+                                                value={this.state.markdownInputValue}
+                                                onChange={this.updateMarkdownInputValue}
+                                                previewOptions={{
+                                                    rehypePlugins: [[rehypeSanitize]],
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-seo-section-title">
+                                        <span>SEO</span>
+                                    </div>
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Title Tag</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-input">
+                                            <input
+                                                type="text"
+                                                value={this.state.seoTitleTagInputValue}
+                                                onChange={this.updateSeoTitleTagInputValue}
+                                            />
+                                            <span className={this.state.seoTitleTagCharLeft > 0 ? "char-length green" : "char-length red"}>{this.state.seoTitleTagCharLeft}</span>
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-form-section">
+                                        <div className="edit-blog-post-form-section-label">
+                                            <span>Meta Description</span>
+                                        </div>
+                                        <div className="edit-blog-post-form-section-input">
                                     <textarea
                                         type="text"
                                         value={this.state.metaDescriptionInputValue}
                                         onChange={this.updateMetaDescriptionInputValue}
                                     />
-                                    <span className={this.state.metaDescriptionCharLeft > 0 ? "char-length green" : "char-length red"}>
+                                            <span className={this.state.metaDescriptionCharLeft > 0 ? "char-length green" : "char-length red"}>
                                         {this.state.metaDescriptionCharLeft}
                                     </span>
-                                </div>
-                            </div>
-                            <div className="edit-blog-post-form-btns-section">
-                                <div className="edit-blog-post-form-submit-btn-container">
+                                        </div>
+                                    </div>
+                                    <div className="edit-blog-post-form-btns-section">
+                                        <div className="edit-blog-post-form-submit-btn-container">
+                                            {
+                                                !this.state.submitLoading ?
+                                                    <div onClick={this.submitEditPostRequest} className="edit-blog-post-form-btn">
+                                                        <span>Submit</span>
+                                                    </div> :
+                                                    <div className="edit-blog-post-form-btn loading">
+                                                        <span>Loading</span>
+                                                    </div>
+                                            }
+                                        </div>
+                                        <div onClick={this.showDeleteModalRequest} className="edit-blog-post-form-delete">
+                                            <span>Delete</span>
+                                        </div>
+                                    </div>
                                     {
-                                        !this.state.submitLoading ?
-                                            <div onClick={this.submitEditPostRequest} className="edit-blog-post-form-btn">
-                                                <span>Submit</span>
-                                            </div> :
-                                            <div className="edit-blog-post-form-btn loading">
-                                                <span>Loading</span>
-                                            </div>
+                                        this.state.submitError ?
+                                            <div className="edit-blog-post-submit-error-msg">
+                                                <span>{this.state.errorMsg}</span>
+                                            </div> : null
+                                    }
+                                    {
+                                        this.state.submitSuccess ?
+                                            <div className="edit-blog-post-submit-success-msg">
+                                                <span>Success!</span>
+                                            </div> : null
                                     }
                                 </div>
-                                <div onClick={this.showDeleteModalRequest} className="edit-blog-post-form-delete">
-                                    <span>Delete</span>
-                                </div>
+                            </div> :
+                            <div className="edit-blog-post-get-data-error-msg">
+                                {
+                                    this.props.getDataError ?
+                                        <span>An error occurred.</span> :
+                                        <span>Blog post not found.</span>
+                                }
                             </div>
-                            {
-                                this.state.submitError ?
-                                    <div className="edit-blog-post-submit-error-msg">
-                                        <span>{this.state.errorMsg}</span>
-                                    </div> : null
-                            }
-                            {
-                                this.state.submitSuccess ?
-                                    <div className="edit-blog-post-submit-success-msg">
-                                        <span>Success!</span>
-                                    </div> : null
-                            }
-                        </div>
-                    </div>
+                    }
+
                 </div>
                 <DeleteBlogPostModal
                     error={this.state.deleteError}

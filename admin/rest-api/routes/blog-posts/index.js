@@ -49,4 +49,17 @@ app.get("/blog-posts/get-all", authAdminUser, function(req, res) {
     }
 })
 
+app.get("/blog-posts/get-post-by-id", authAdminUser, function(req, res) {
+    if (!req.query.id) {
+        res.json({notFoundError: false})
+    } else if (!res.locals.authSuccess) {
+        res.json({authSuccess: false})
+    } else {
+        api.getBlogPostById(req.query.id, function(apiResponse) {
+            apiResponse.authSuccess = true
+            res.json(apiResponse)
+        })
+    }
+})
+
 module.exports = app
