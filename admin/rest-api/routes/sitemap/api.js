@@ -3,6 +3,7 @@ const moment = require("moment")
 const fs = require("fs")
 const formatXml = require("xml-formatter")
 const cmd = require("node-cmd")
+const axios = require("axios")
 
 const BlogPostModel = require("../../models/post")
 
@@ -14,6 +15,17 @@ module.exports = {
     restartFrontendWebsitePm2Process: function(callback) {
         cmd.run("pm2 restart frontend-website")
         callback({success: true})
+    },
+
+    pingSearchEngines: function(callback) {
+        axios.all([
+            axios.get(`https://www.google.com/ping?sitemap=${config.prodFrontendWebsiteURL}/sitemap.xml`),
+            axios.get(`https://www.bing.com/ping?sitemap=${config.prodFrontendWebsiteURL}/sitemap.xml`)
+        ]).then(axios.spread(function() {
+            callback({success: true})
+        })).catch(function(pingError) {
+            callback({submitError: false})
+        })
     },
 
     updateSitemapXmlFile: function(callback) {

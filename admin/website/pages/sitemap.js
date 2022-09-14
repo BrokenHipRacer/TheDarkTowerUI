@@ -8,6 +8,7 @@ import authUser from "../api/admin-user/auth"
 
 import updateSitemap from "../api/sitemap/updateSitemap"
 import restartPm2Process from "../api/sitemap/restartPm2Process"
+import pingSearchEngines from "../api/sitemap/pingSearchEngines"
 
 export default class extends Component {
     constructor(props) {
@@ -78,7 +79,19 @@ export default class extends Component {
     pingSearchEnginesRequest = () => {
         this.setState({pingLoading: true, pingError: false, pingSuccess: false})
 
-        // call ping search engines function
+        const self = this
+
+        pingSearchEngines(function(apiResponse) {
+            if (apiResponse.submitError) {
+                self.setState({pingLoading: false, pingError: true, pingSuccess: false})
+            } else if (!apiResponse.authSuccess) {
+                window.location.href = "/login"
+            } else if (!apiResponse.success) {
+                self.setState({pingLoading: false, pingError: true, pingSuccess: false})
+            } else {
+                self.setState({pingLoading: false, pingError: false, pingSuccess: true})
+            }
+        })
     }
 
     render () {
