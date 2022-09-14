@@ -9,6 +9,7 @@ import Sidebar from "../../../components/sidebar"
 import DeleteBlogPostModal from "../../../components/modals/deleteBlogPost"
 
 import getBlogPostById from "../../../api/blog-posts/getPostById";
+import editBlogPost from "../../../api/blog-posts/editBlogPost"
 
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor").then((mod) => mod.default),
@@ -115,8 +116,64 @@ export default class extends Component {
         })
     }
 
+    showSuccessMsg = () => {
+        this.setState({submitSuccess: true})
+
+        const self = this
+
+        setTimeout(function(){
+            self.setState({submitSuccess: false})
+        }, 3000)
+    }
+
     submitEditPostRequest = () => {
-        this.setState({submitLoading: true})
+        if (!this.state.titleInputValue) {
+            this.setState({submitError: true, errorMsg: "Title field is required."})
+        } else if (!this.state.urlTitleInputValue) {
+            this.setState({submitError: true, errorMsg: "URL title field is required."})
+        } else if (!this.state.dateInputValue) {
+            this.setState({submitError: true, errorMsg: "Date field is required."})
+        } else if (!this.state.tagsInputValue) {
+            this.setState({submitError: true, errorMsg: "Date field is required."})
+        } else if (!this.state.imageUrlInputValue) {
+            this.setState({submitError: true, errorMsg: "Image URL field is required."})
+        } else if (!this.state.markdownInputValue) {
+            this.setState({submitError: true, errorMsg: "Markdown content field is required."})
+        } else if (!this.state.seoTitleTagInputValue) {
+            this.setState({submitError: true, errorMsg: "SEO title field is required."})
+        } else if (!this.state.metaDescriptionInputValue) {
+            this.setState({submitError: true, errorMsg: "Meta description field is required."})
+        } else {
+            this.setState({submitSuccess: false, submitError: false, submitLoading: true, errorMsg: ""})
+
+            const self = this
+
+            editBlogPost(
+                this.props.post.id,
+                this.state.titleInputValue,
+                this.state.urlTitleInputValue,
+                moment(this.state.dateInputValue).valueOf() / 1000,
+                this.state.tagsInputValue,
+                this.state.imageUrlInputValue,
+                this.state.markdownInputValue,
+                this.state.seoTitleTagInputValue,
+                this.state.metaDescriptionInputValue,
+                function(apiResponse) {
+                    if (apiResponse.submitError) {
+                        self.setState({submitSuccess: false, submitError: true, errorMsg: "An error occurred.", submitLoading: false})
+                    } else if (!apiResponse.authSuccess) {
+                        window.location.href = "/login"
+                    } else if (apiResponse.notFoundError) {
+                        self.setState({submitSuccess: false, submitError: true, errorMsg: "Blog post not found.", submitLoading: false})
+                    } else if (!apiResponse.success) {
+                        self.setState({submitSuccess: false, submitError: true, errorMsg: "An error occurred.", submitLoading: false})
+                    } else {
+                        self.setState({submitError: false, submitLoading: false})
+                        self.showSuccessMsg()
+                    }
+                }
+            )
+        }
     }
 
     showDeleteModalRequest = () => {

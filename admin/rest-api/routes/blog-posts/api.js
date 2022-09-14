@@ -38,6 +38,34 @@ module.exports = {
         })
     },
 
+    editBlogPost: function(id, title, urlTitle, dateTimestamp, tags, thumbnailImageUrl, markdownContent, seoTitleTag, seoMetaDescription, callback) {
+        const arrayOfTags = tags.split(",").map(function(tag) {
+            return tag.trim()
+        })
+
+        BlogPostModel.findOneAndUpdate(
+            {id: id},
+            {$set: {
+                    title: title,
+                    urlTitle: urlTitle,
+                    dateTimestamp: dateTimestamp,
+                    tags: arrayOfTags,
+                    thumbnailImageUrl: thumbnailImageUrl,
+                    markdownContent: markdownContent,
+                    seoTitleTag: seoTitleTag,
+                    seoMetaDescription:seoMetaDescription
+                }}
+        ).exec(function(error, post) {
+            if (error) {
+                callback({submitError: true})
+            } else if (!post) {
+                callback({notFoundError: true})
+            } else {
+                callback({success: true})
+            }
+        })
+    },
+
     getAllBlogPosts: function(callback) {
         const now = moment().unix()
 
