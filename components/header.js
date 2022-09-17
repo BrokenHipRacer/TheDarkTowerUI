@@ -12,6 +12,7 @@ export default class extends Component {
                         </a>
                     </div>
                     <div className="header-links">
+                        <a href="https://173.174.124.207:30001">Character Server</a>
                         <a href="/blog">Blog</a>
                         <a href="/about">About</a>
                         <a href="/contact">Contact</a>
