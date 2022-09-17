@@ -12,6 +12,7 @@ import "../styles/pages/post.css"
 import "../styles/pages/contact.css"
 import "../styles/pages/about.css"
 import "../styles/pages/_error.css"
+import "../styles/pages/roleplaying.css"
 
 // external import
 import "../styles/prismjs.css"

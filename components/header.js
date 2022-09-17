@@ -7,13 +7,12 @@ export default class extends Component {
                 <div className="header-container">
                     <div className="header-logo">
                         <a href="/">
-                            <span className="header-logo-icon">💾</span>
-                            <span className="header-logo-text">Andrew Alsberge</span>
+                            <img src="/logo_size.jpg"/>
                         </a>
                     </div>
                     <div className="header-links">
-                        <a href="https://173.174.124.207:30001">Character Server</a>
                         <a href="/blog">Blog</a>
+                        <a href="/roleplaying">Roleplaying</a>
                         <a href="/about">About</a>
                         <a href="/contact">Contact</a>
                     </div>

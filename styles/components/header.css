@@ -59,6 +59,10 @@
     color: #272727;
 }
 
+.header-logo img {
+    width: 50%;
+}
+
 @media only screen and (max-width: 900px) and (min-width: 0px) {
     .header-container {
         height: 35px;

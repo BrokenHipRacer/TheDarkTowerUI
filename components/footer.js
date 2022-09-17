@@ -6,6 +6,7 @@ export default class extends Component {
             <footer className="footer-wrapper">
                 <div className="footer-links">
                     <a href="/blog">Blog</a>
+                    <a href="/roleplaying">Roleplaying</a>
                     <a href="/about">About</a>
                     <a href="/contact">Contact</a>
                 </div>
