@@ -50,7 +50,7 @@ export default class MainPage extends Component {
                 this.props.posts ?
                     this.props.posts.map((post, index) => {
                       return (
-                        <a key={1} href={`/blog/${post.urlTitle}`}>
+                        <a key={index} href={`/blog/${post.urlTitle}`}>
                           <div className="homepage-latest-blog-post">
                             <div className="homepage-latest-thumbnail">
                               <img src={post.thumbnailImageUrl} />
