@@ -3,7 +3,6 @@ import {render, screen} from '@testing-library/react';
 import axios from 'axios';
 
 import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 
 import MainPage from '../../src/pages/index';
 import {randomPost, compareMaps, headerFooterValidation} from '../test.methods';
@@ -51,7 +50,7 @@ describe('Main Page initialize, ', () => {
     axios.mockResolvedValue({status: 200, data: {'posts': [blogpost1]}});
     const response = await MainPage.getInitialProps();
     expect(response.posts.length).toEqual(1);
-    expect(compareMaps(response.posts[0], blogpost1)).toBeTruthy();
+    expect(compareMaps(response.posts[0], blogpost1)).toBe(true);
   });
 
   it('getInitialProps with multiple posts', async () => {
@@ -60,8 +59,8 @@ describe('Main Page initialize, ', () => {
     axios.mockResolvedValue({status: 200, data: {'posts': [blogpost1, blogpost2]}});
     const response = await MainPage.getInitialProps();
     expect(response.posts.length).toEqual(2);
-    expect(compareMaps(response.posts[0], blogpost1)).toBeTruthy();
-    expect(compareMaps(response.posts[1], blogpost2)).toBeTruthy();
+    expect(compareMaps(response.posts[0], blogpost1)).toBe(true);
+    expect(compareMaps(response.posts[1], blogpost2)).toBe(true);
   });
 });
 
@@ -75,4 +74,3 @@ function baseValidation(container) {
   expect(container.getElementsByClassName('homepage-latest-blog-posts-view-all')).toHaveLength(1);
   expect(container.getElementsByClassName('homepage-projects')).toHaveLength(1);
 }
-
