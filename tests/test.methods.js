@@ -1,5 +1,14 @@
 import randomstring from 'randomstring';
 
+const markdownExample = '## Paragraphs:\n A short paragraph with a link [Google](https://google.com).\n ' +
+    '\n An example of a longer paragraph that will be used in your blog posts when you create your own ' +
+    'website or blog. And add as much additional content here as you want. An example of a longer paragraph ' +
+    'that will be used in your blog posts when you create your own website or blog. And add as much additional ' +
+    'content here as you want.\n An example of a longer paragraph that will be used in your blog posts when you ' +
+    'create your own website or blog. And add as much additional content here as you want. An example of a longer ' +
+    'paragraph that will be used in your blog posts when you create your own website or blog. And add as much ' +
+    'additional content here as you want.\n ## Lists:\n An unordered list:\n * A short code snippet:';
+
 /**
  * Create a random blog post
  * @return {{dataTimestamp: string, thumbnailImageUrl: *, urlTitle: *, _id: *, title: *, tags: *[]}}
@@ -12,6 +21,10 @@ export function randomPost() {
     'title': randomstring.generate(),
     'urlTitle': randomstring.generate(),
     '_id': randomstring.generate(),
+    'id': randomstring.generate(),
+    'markdownContent': markdownExample,
+    'seoTitleTag': randomstring.generate(),
+    'seoMetaDescription': randomstring.generate(),
   };
 }
 

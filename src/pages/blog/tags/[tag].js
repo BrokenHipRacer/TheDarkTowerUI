@@ -13,7 +13,7 @@ import getBlogPostsByTag from '../../../api/getBlogPostsByTag';
  */
 export default class PostsWithTag extends Component {
   /**
-   * @param {string} query Blog Tag
+   * @param {Object} String query Blog Tag
    * @return {Promise<{tag, posts: *, getDataError: (boolean|*)}>} List of Blogs with tag
    */
   static async getInitialProps({query}) {

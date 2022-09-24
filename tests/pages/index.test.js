@@ -9,12 +9,12 @@ import {randomPost, compareMaps, headerFooterValidation} from '../test.methods';
 
 jest.mock('axios', () => jest.fn());
 
-describe('Main Page renders, ', () => {
+describe('Main Page renders', () => {
   it('main page without blog posts', () => {
     const {container} = render(<MainPage/>);
     headerFooterValidation(container);
     baseValidation(container);
-    expect(container.getElementsByClassName('homepage-latest-blog-post').length).toEqual(0);
+    expect(container.getElementsByClassName('homepage-latest-blog-post')).toHaveLength(0);
   });
 
   it('main page with one blog post', () => {
@@ -38,7 +38,7 @@ describe('Main Page renders, ', () => {
   });
 });
 
-describe('Main Page initialize, ', () => {
+describe('Main Page initialize', () => {
   it('getInitialProps with 0', async () => {
     axios.mockResolvedValue({status: 200, data: {'posts': []}});
     const response = await MainPage.getInitialProps();

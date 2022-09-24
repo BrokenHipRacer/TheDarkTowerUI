@@ -7,7 +7,7 @@ import About from '../../src/pages/about';
 
 import {headerFooterValidation} from '../test.methods';
 
-describe('About Page renders, ', () => {
+describe('About Page renders', () => {
   it('with no errors', () => {
     const {container} = render(<About/>);
     headerFooterValidation(container);

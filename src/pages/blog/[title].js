@@ -17,7 +17,7 @@ import getBlogPostByUrlTitle from '../../api/getBlogPostByUrlTitle';
  */
 export default class BlogPost extends Component {
   /**
-   * @param {string} query Blog Title
+   * @param {Object} query Blog Title
    * @return {Promise<{post: *, notFoundError: *, getDataError: (boolean|*)}>} Blog post
    */
   static async getInitialProps({query}) {

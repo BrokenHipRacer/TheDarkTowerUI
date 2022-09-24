@@ -7,12 +7,12 @@ import Roleplaying from '../../src/pages/roleplaying';
 
 import {headerFooterValidation} from '../test.methods';
 
-describe('Roleplaying Page renders, ', () => {
-    it('with no errors', () => {
-        const {container} = render(<Roleplaying/>);
-        headerFooterValidation(container);
-        baseValidation(container);
-    });
+describe('Roleplaying Page renders', () => {
+  it('with no errors', () => {
+    const {container} = render(<Roleplaying/>);
+    headerFooterValidation(container);
+    baseValidation(container);
+  });
 });
 
 /**
@@ -20,7 +20,7 @@ describe('Roleplaying Page renders, ', () => {
  * @param {Object} container
  */
 function baseValidation(container) {
-    // core of page
-    expect(container.getElementsByClassName('dungeonsNDragons-section').length).toBe(1);
+  // core of page
+  expect(container.getElementsByClassName('dungeonsNDragons-section').length).toBe(1);
 }
 

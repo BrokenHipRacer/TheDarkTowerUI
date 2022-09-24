@@ -7,12 +7,12 @@ import Contact from '../../src/pages/contact';
 
 import {headerFooterValidation} from '../test.methods';
 
-describe('Contact Page renders, ', () => {
-    it('with no errors', () => {
-        const {container} = render(<Contact/>);
-        headerFooterValidation(container);
-        baseValidation(container);
-    });
+describe('Contact Page renders', () => {
+  it('with no errors', () => {
+    const {container} = render(<Contact/>);
+    headerFooterValidation(container);
+    baseValidation(container);
+  });
 });
 
 /**
@@ -20,7 +20,7 @@ describe('Contact Page renders, ', () => {
  * @param {Object} container
  */
 function baseValidation(container) {
-    // core of page
-    expect(container.getElementsByClassName('contact-section')).toHaveLength(2);
+  // core of page
+  expect(container.getElementsByClassName('contact-section')).toHaveLength(2);
 }
 
