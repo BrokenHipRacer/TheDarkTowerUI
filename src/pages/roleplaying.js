@@ -26,10 +26,10 @@ export default class Roleplaying extends Component {
             <h1>Dungeons and Dragons</h1>
             <ul>
               <li><strong>Foundry Game Table</strong>:
-                <a href="https://173.174.124.207:30000">
+                <a href="https://foundry.games.alsberge.dev">
                       Current Game is Out Of The Abyss</a></li>
               <li><strong>Foundry Personal Table</strong>:
-                <a href="https://173.174.124.207:30001">
+                <a href="https://foundry.characters.alsberge.dev">
                       My various personal notes and game ideas</a></li>
             </ul>
           </div>
