@@ -40,11 +40,11 @@ export default class About extends Component {
                 there are those with questions, I can answer questions for how I overcome them.
             </p>
             <p>
-                I have worked for Bioware(QA), HomeAway/VRBO/Expedia(SDET-SE3), and now work for Khoros as an Quality Engineer 3.  My
-                working time has always included working on internal testing tools and frameworks.  I have spent time
-                writing test plans, tool documentation, writing tests for both automation and manual testing, PR
-                reviews, and mentorship of new hires and college interns.  Tools I have written have been for generating
-                test data, reporting and estimating AWS costs, HR peer review system, and an
+                I have worked for Bioware(QA), HomeAway/VRBO/Expedia(SDET-SE3), and now work for Khoros as an Quality
+                Engineer 3.  My working time has always included working on internal testing tools and frameworks.  I
+                have spent time writing test plans, tool documentation, writing tests for both automation and manual
+                testing, PR reviews, and mentorship of new hires and college interns.  Tools I have written have been
+                for generating test data, reporting and estimating AWS costs, HR peer review system, and an
                 authentication/authorization tool.  I have written automated tests for Databases (SQL and No SQL), web
                 APIs, web UIs, and an internal Customer Service tool. Unit tests to full stack integration test, White
                 Box to Black Box testing.
@@ -77,7 +77,8 @@ export default class About extends Component {
             <h2>Currently Using</h2>
             <ul>
               <li><strong>Computers</strong>: M1 MacBook Pro, IBM Legion PC, Raspberry PI4</li>
-              <li><strong>Web Services</strong>: AWS Route 53, AWS EC2, AWS EBS, Atlas MongoDB, other Raspberry PI processes</li>
+              <li><strong>Web Services</strong>: AWS Route 53, AWS EC2, AWS EBS, Atlas MongoDB, other Raspberry PI
+                  processes</li>
               <li><strong>Editors</strong>: IntelliJ IDEA, Notepad++, nano</li>
             </ul>
           </div>
