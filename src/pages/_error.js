@@ -8,7 +8,7 @@ import HeadMetadata from '../components/headMetadata';
 /**
  * Error page
  */
-export default class Error extends Component {
+export default class ErrorPage extends Component {
   /**
    * @param {Object} req
    * @param {Object} res
