@@ -53,7 +53,7 @@ export default class MainPage extends Component {
                         <a key={1} href={`/blog/${post.urlTitle}`}>
                           <div className="homepage-latest-blog-post">
                             <div className="homepage-latest-thumbnail">
-                              <img src={post.thumbnailImageUrl} />
+                              <img crossOrigin="anonymous" src={post.thumbnailImageUrl} />
                             </div>
                             <div className="homepage-latest-blog-post-title">
                               <h3>{post.title}</h3>
