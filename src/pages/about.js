@@ -31,8 +31,8 @@ export default class About extends Component {
                 I'm a dedicated programmer/geek/nerd. I endeavour to enjoying my time behind my computers and also time
                 with my husband, dogs, and friends when out of my office.  My partner and I have two dogs, an energetic
                 Rat Terrier and a normally chill King Charles except for the once or two times a day he wants to play.
-                Currently living in Austin Texas but I'm from upstate New York.  I am a proud member of the LGBTQIA2+
-                community, mentored in a pride youth programming summer camp, and attending LGBTQA2+ tech events.  I
+                Currently living in Austin Texas but I'm from upstate New York.  I am a proud member of the LGBTQIA2S+
+                community, mentored in a pride youth programming summer camp, and attending LGBTQIA2S+ tech events.  I
                 also have dysgraphia which can be seen in my blogs, I will not be in my regards OVER editing my post but
                 will also show as example of how I express in written language for normal communication.  While the I
                 could spend the like I do in formal documentation this work is the normal me.  Lastly of the airing out
