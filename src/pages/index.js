@@ -37,10 +37,11 @@ export default class MainPage extends Component {
         <div className="homepage-container">
           <div className="homepage-introduction">
             <h1>Hello, I'm Andrew Alsberge.  Here you will find my personal works</h1>
-            <p>I'm a full stack software developer and quality engineer.
-              I write about my side works and roleplaying fun.</p>
+            <p>I'm a full stack software developer and quality engineer.</p>
+            <p>I write about my side works and roleplaying fun.</p>
           </div>
           <div className="homepage-latest-blog-posts">
+            <span className="span-error-message">Images are broken at the moment while working on a CORS issue</span>
             <h2>
                             Latest Blog Posts
               <a className="homepage-latest-blog-posts-view-all" href="/blog">View all</a>
@@ -53,7 +54,7 @@ export default class MainPage extends Component {
                         <a key={index} href={`/blog/${post.urlTitle}`}>
                           <div className="homepage-latest-blog-post">
                             <div className="homepage-latest-thumbnail">
-                              <img crossOrigin="anonymous" src={post.thumbnailImageUrl} />
+                              <img crossOrigin="use-credentials" src={post.thumbnailImageUrl} />
                             </div>
                             <div className="homepage-latest-blog-post-title">
                               <h3>{post.title}</h3>
@@ -70,38 +71,31 @@ export default class MainPage extends Component {
             <div className="homepage-projects-list">
               <div className="homepage-project">
                 <h3>
-                  <a href="https://github.com/discourse/discourse">
-                    <div className="homepage-project-icon">📞</div>
-                    <div className="homepage-project-title">Discourse</div>
+                  <a href="https://github.com/BrokenHipRacer/TheDarkTower">
+                    <div className="homepage-project-icon">💻</div>
+                    <div className="homepage-project-title">The Dark Tower</div>
                   </a>
                 </h3>
-                <p>A platform for community discussion. Free, open, simple</p>
+                <p>A project that has is a running practice of interview coding questions and even has a working api for
+                  it</p>
                 <div className="homepage-project-btns">
-                  <a className="homepage-project-view-btn" href="https://github.com/discourse/discourse">View</a>
+                  <a className="homepage-project-view-btn" href="https://github.com/BrokenHipRacer/TheDarkTower">
+                    View
+                  </a>
                 </div>
               </div>
               <div className="homepage-project">
                 <h3>
-                  <a href="https://github.com/nmajor25/seconds-converter">
-                    <div className="homepage-project-icon">⌛</div>
-                    <div className="homepage-project-title">Seconds Converter</div>
+                  <a href="https://github.com/BrokenHipRacer/DarkArts">
+                    <div className="homepage-project-icon">🎨</div>
+                    <div className="homepage-project-title">Dark Arts</div>
                   </a>
                 </h3>
-                <p>Convert milliseconds or seconds to days, hours, minutes, and seconds in node.js.</p>
+                <p>This will be my project for AI art generation but it's a work in progress</p>
                 <div className="homepage-project-btns">
-                  <a className="homepage-project-view-btn" href="https://github.com/nmajor25/seconds-converter">View</a>
-                </div>
-              </div>
-              <div className="homepage-project">
-                <h3>
-                  <a href="https://github.com/showdownjs/showdown">
-                    <div className="homepage-project-icon">⌛</div>
-                    <div className="homepage-project-title">Showdown</div>
+                  <a className="homepage-project-view-btn" href="https://github.com/BrokenHipRacer/DarkArts">
+                    View
                   </a>
-                </h3>
-                <p>A bidirectional Markdown to HTML to Markdown converter written in Javascript.</p>
-                <div className="homepage-project-btns">
-                  <a className="homepage-project-view-btn" href="https://github.com/showdownjs/showdown">View</a>
                 </div>
               </div>
             </div>

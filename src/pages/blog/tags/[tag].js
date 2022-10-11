@@ -48,7 +48,7 @@ export default class PostsWithTag extends Component {
                         <a key={index} href={`/blog/${post.urlTitle}`}>
                           <div className="blog-posts-list-item">
                             <div className="blog-posts-thumbnail">
-                              <img crossOrigin="anonymous" src={post.thumbnailImageUrl} />
+                              <img src={post.thumbnailImageUrl} />
                             </div>
                             <div className="blog-posts-list-item-title-and-date">
                               <h2>{post.title}</h2>

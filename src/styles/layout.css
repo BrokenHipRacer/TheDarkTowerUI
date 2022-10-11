@@ -24,3 +24,7 @@ a:focus {
     padding-left: 30px;
     padding-right: 30px;
 }
+
+.span-error-message {
+    color: red;
+}
