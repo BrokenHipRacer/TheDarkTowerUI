@@ -19,7 +19,7 @@ a:focus {
 .layout-wrapper {
     width: 97.5%;
     height: 100%;
-    max-width: 850px;
+    max-width: 70%;
     margin: auto;
     padding-left: 30px;
     padding-right: 30px;
