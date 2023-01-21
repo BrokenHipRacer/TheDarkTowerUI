@@ -4,32 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./src ./tests --fix",
-    "test": "jest --coverage --watch",
     "dev": "next",
     "build": "next build",
     "start": "next start"
   },
   "keywords": [],
-  "author": "BrokenHipRacer andrew@alsberge.email",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.27.2",
-    "moment": "^2.29.4",
-    "next": "^12.2.4",
-    "prismjs": "^1.28.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "eslint": "^8.23.1",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-next": "12.3.0",
-    "eslint-plugin-react": "^7.31.8",
-    "jest": "^29.0.3",
-    "jest-environment-jsdom": "^29.0.3",
-    "randomstring": "^1.2.2"
+    "axios": "^0.19.2",
+    "moment": "^2.25.3",
+    "next": "^9.4.0",
+    "prismjs": "^1.20.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-ga": "^2.7.0"
   }
 }
